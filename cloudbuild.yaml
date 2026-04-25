@@ -4,30 +4,38 @@ options:
 steps:
 # Build Docker Image
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'build',
-    '-t',
-    'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app',
-    '-f',
-    'webapp-nginx/Dockerfile',
-    'webapp-nginx'
-  ]
+  args:
+    [
+      'build',
+      '-t',
+      'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app',
+      '-f',
+      'webapp-nginx/Dockerfile',
+      'webapp-nginx'
+    ]
 
 # Push Image
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'push',
-    'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app'
-  ]
+  args:
+    [
+      'push',
+      'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app'
+    ]
 
 # Deploy to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
-    - run
-    - deploy
-    - nginx-service
-    - --image=us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app
-    - --region=us-central1
-    - --platform=managed
-    - --allow-unauthenticated
+    [
+      'run',
+      'deploy',
+      'nginx-service',
+      '--image=us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app',
+      '--region=us-central1',
+      '--platform=managed',
+      '--allow-unauthenticated',
+      '--port=80'
+    ]
+
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app'
