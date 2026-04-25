@@ -5,4 +5,4 @@ COPY index.html /usr/share/nginx/html/index.html
 COPY error_404.html /usr/share/nginx/html/error_404.html
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+EXPOSE 8080
