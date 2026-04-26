@@ -8,7 +8,7 @@ steps:
     [
       'build',
       '-t',
-      'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app',
+      'us-east1-docker.pkg.dev/$PROJECT_ID/nginx-registry/nginx-app',
       '-f',
       'webapp-nginx/Dockerfile',
       'webapp-nginx'
@@ -19,7 +19,7 @@ steps:
   args:
     [
       'push',
-      'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app'
+      'us-east1-docker.pkg.dev/$PROJECT_ID/nginx-registry/nginx-app'
     ]
 
 # Deploy to Cloud Run
@@ -30,12 +30,9 @@ steps:
       'run',
       'deploy',
       'nginx-service',
-      '--image=us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app',
-      '--region=us-central1',
+      '--image=us-east1-docker.pkg.dev/$PROJECT_ID/nginx-registry/nginx-app',
+      '--region=us-east1',
       '--platform=managed',
       '--allow-unauthenticated',
       '--port=8080'
     ]
-
-images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/nginx-repo/nginx-app'
